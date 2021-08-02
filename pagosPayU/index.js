@@ -32,8 +32,8 @@ request.open('POST', 'https://api.paymentsos.com/payments/{payment_id}/authoriza
 request.setRequestHeader('Content-Type', 'application/json');
 request.setRequestHeader('api-version', '1.3.0');
 request.setRequestHeader('x-payments-os-env', 'test');
-request.setRequestHeader('app-id', 'com.zooz.docapp');
-request.setRequestHeader('private-key', 'bede7ee5-eaaq-4c9a-bc1f-617ba28256ae');
+request.setRequestHeader('app-id', 'prueba.wolfbusinesscompany.wolfbusinesscompany');
+request.setRequestHeader('private-key', '63b34924-559d-4a51-b56f-ffe3c2a52874');
 request.setRequestHeader('idempotency-key', 'cust-34532-trans-001356-a');
 var body = {
   'payment_method': {
@@ -93,36 +93,6 @@ cardNumber.on('blur', (event) => {
   console.log(event)
 })
 
-const style = {
-  base: {
-      color: '#fff',
-      fontWeight: 600,
-      fontFamily: 'Quicksand, Open Sans, Segoe UI, sans-serif',
-      fontSize: '16px',
-      fontSmoothing: 'antialiased',
-      ':focus': {
-          color: '#424770',
-      },
-
-      '::placeholder': {
-          color: '#9BACC8',
-      },
-
-      ':focus::placeholder': {
-          color: '#CFD7DF',
-      },
-  },
-  invalid: {
-      color: '#FF0000',
-      ':focus': {
-          color: '#FA755A',
-      },
-      '::placeholder': {
-          color: '#FFCCA5',
-      },
-  }
-};
-
 const classes = {
   invalid: 'my-own-invalid-class'
 }
@@ -134,3 +104,4 @@ const cardNumber = formElements.create('cardNumber', {
 const cardNumber = formElements.create('cardNumber', {
   style,
 })
+

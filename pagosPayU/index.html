@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 
-  <script language="JavaScript" type="text/javascript" src="https://js.paymentsos.com/v2/latest/token.min.js"></script>
-  <script>
-    POS.setEnvironment("test"); // Set your environment
-    POS.setPublicKey("99346d84-5186-4221-9c16-dc51a8de27fb"); // Set your public key
-  </script>
+<script language="JavaScript" type="text/javascript" src="https://js.paymentsos.com/v2/latest/token.min.js"></script>
+<script>
+  POS.setEnvironment("test"); // Set your environment
+  POS.setPublicKey("c4d96738-5325-488b-bbc1-54272f0c10cd"); // Set your public key
+</script>
 
 <head>
   <meta charset="UTF-8" />
@@ -16,52 +16,88 @@
 </head>
 
 <body>
+  <script language="JavaScript" type="text/javascript" src="https://js.paymentsos.com/v2/latest/secure-fields.min.js"></script>
+  <script>POS.setPublicKey("c4d96738-5325-488b-bbc1-54272f0c10cd");
+  </script>
   <div class="w3-container w3-green">
     <img src="logoblanco.png">
     <label><b>PLATAFORMA DE PAGOS WOLF BUSINESS COMPANY</b></label>
   </div>
-
-  <div class="checkout-page">
-    <form id="payment-form">
-       <div class="field">
-          <input id="cardholder-name" class="input empty" placeholder="John Doe" />
-          <label>Name</label>
-       </div>
-       <div class="field">
-          <div id="card-number" class="input empty"></div>
-          <label>Card Number</label>
-       </div>
-       <div class="field">
-          <div id="exp-date" class="input empty"></div>
-          <label>Expiration Date</label>
-       </div>
-       <button type="submit" id="pay_button">Pay $25</button>
-    </form>
- </div>
-
-
-  <!--
   <div class="card">
-    <form id="payment-form">
-      <div class="field">
-        <input id="cardholder-name" class="input empty" placeholder="John Doe" />
-        <label>Name</label>
-      </div>
-      <div class="field">
-        <div id="card-number" class="input empty"></div>
-        <label>Card Number</label>
-      </div>
-      <div class="field">
-        <div id="exp-date" class="input empty"></div>
-        <label>Expiration Date</label>
-      </div>
-      <button type="submit" id="pay_button">Pay $25</button>
-    </form>
-    </class>
+    <h4>PAGOS CON TARJETA</h4>
+    <div class="Valor">
+      <label>Ingrese el valor de Pago</label>
+      <input id="valor" class="input empty" placeholder="$00" />
+    </div>
+    <br>
+    <div class="checkout-page">
+      <label> <b>Informacion Tarjeta</b></label>
+      <form id="payment-form">
+        <div class="field">
+          <label>Nombre</label>
+          <input id="cardholder-name" class="input empty" placeholder="Nombre" />
+        </div>
+        <div class="field">
+          <label>N° Tarjeta</label>
+          <input id="card-number" class="input empty" placeholder="N° Tarjeta" />
+        </div>
+
+        <div class="field">
+          <label>Fecha Vencimiento</label>
+          <input id="exp-date" class="input empty" placeholder="MM / YY" />
+        </div>
+        <div class="field">
+          <label>Codigo Seguridad</label>
+          <input id="cvv" class="input empty" placeholder="CVV" />
+        </div>
+        <br>
+        <button type="submit" id="pay_button">Pago</button>
+      </form>
+    </div>
   </div>
--->
-<script src="https://js.paymentsos.com/v3/latest/secure-fields.min.js"></script>
-<script src="index.js"></script>
+
+  <script>
+
+    // Set your environment. Values are either "test" or "live".
+    // If omitted, the test environment will be used.
+    POS.setEnvironment("test");
+
+    // Initialize the form's fields
+    POS.initSecureFields('card-secure-fields');
+
+    // Attach a click event to the form that is invoked when the
+    // form is submitted. On submit, pass the card information to
+    // PaymentsOS and receive the token representing the card
+    // information in your site.
+    document.getElementById('payment-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const additionalData = {
+        holder_name: document.getElementById('cardholder-name').value // This field is mandatory
+      }
+      POS.createToken(additionalData, function(result) {
+
+        // Grab the token here
+
+      });
+    });
+
+    POS.tokenize({
+        "token_type": "credit_card",
+        "holder_name": "#cardholder-name",
+        "expiration_date": "#exp-date",
+        "card_number": "#card-number"
+    },
+    function (result) {
+
+      console.log ("result obtained"+result);
+
+        // Check for errors, if all is good, then proceed!
+    }
+  );
+  </script>
+
+  <script src="https://js.paymentsos.com/v3/latest/secure-fields.min.js"></script>
+  <script src="index.js"></script>
 
 </body>
 

@@ -1,0 +1,7 @@
+Tokenizacion: la tokenizacion se usa para evitar el robo de la tarjeta, generando con los datos de la tarjeta generando un token unico para realizar transacciones.
+Authorize y captura: es un POST autoriza camputrando los datos de la tarjeta y junto con el token para generar la autenticazion. Teniendo que luego de la autorizacion se captura los fondos.
+Carga: en el flujo de pago es la combinacion de Autorizacion-Captura transfiriendo la cuenta autorizada.
+Anulacion: Una anulación cancela una operación (como una autorización o captura), antes de que se haya finalizado. El procedimiento más común es anular una autorización.
+Rembolso: Un reembolso le permite cancelar o deshacer una venta y devolver el monto cobrado al cliente.
+
+La experiencia al realizar este proyecto es bastante interesante pues junto con la documentacion es bastante completo. Dando explicacion y mostrando de manera explicativa, didactica la integracion de esta API con una pagina Web
