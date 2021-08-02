@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+
+  <script language="JavaScript" type="text/javascript" src="https://js.paymentsos.com/v2/latest/token.min.js"></script>
+  <script>
+    POS.setEnvironment("test"); // Set your environment
+    POS.setPublicKey("99346d84-5186-4221-9c16-dc51a8de27fb"); // Set your public key
+  </script>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./index.css">
+  <title>Plataforma de Pagos</title>
+</head>
+
+<body>
+  <div class="w3-container w3-green">
+    <img src="logoblanco.png">
+    <label><b>PLATAFORMA DE PAGOS WOLF BUSINESS COMPANY</b></label>
+  </div>
+
+  <div class="checkout-page">
+    <form id="payment-form">
+       <div class="field">
+          <input id="cardholder-name" class="input empty" placeholder="John Doe" />
+          <label>Name</label>
+       </div>
+       <div class="field">
+          <div id="card-number" class="input empty"></div>
+          <label>Card Number</label>
+       </div>
+       <div class="field">
+          <div id="exp-date" class="input empty"></div>
+          <label>Expiration Date</label>
+       </div>
+       <button type="submit" id="pay_button">Pay $25</button>
+    </form>
+ </div>
+
+
+  <!--
+  <div class="card">
+    <form id="payment-form">
+      <div class="field">
+        <input id="cardholder-name" class="input empty" placeholder="John Doe" />
+        <label>Name</label>
+      </div>
+      <div class="field">
+        <div id="card-number" class="input empty"></div>
+        <label>Card Number</label>
+      </div>
+      <div class="field">
+        <div id="exp-date" class="input empty"></div>
+        <label>Expiration Date</label>
+      </div>
+      <button type="submit" id="pay_button">Pay $25</button>
+    </form>
+    </class>
+  </div>
+-->
+<script src="https://js.paymentsos.com/v3/latest/secure-fields.min.js"></script>
+<script src="index.js"></script>
+
+</body>
+
+</html>
