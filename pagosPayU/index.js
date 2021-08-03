@@ -61,28 +61,13 @@ const classes = {
 })*/
 
 function prueba() {
-  POS.tokenize({
-    "token_type": "credit_card",
-    "holder_name": "MR C D HOLDER",
-    "expiration_date": "09-2025",
-    "card_number": "4111111111111111"
-    /* "token_type": "credit_card",
-     "holder_name": document.getElementById("cardholder-name"),
-     "expiration_date": document.getElementById("exp-date"),
-     "card_number": document.getElementById("card-number")*/
-  },
-    function (result) {
 
-      console.log("result obtained" + result);
-      console.log('sirve');
-      let json = JSON.parse(result);
-      token = json["token"];
-      console.log(json["token"]);
-
-      // Check for errors, if all is good, then proceed!
-    }
-  );
-
+  let holder_name = document.getElementById("cardholder-name").value;
+  let card_number = document.getElementById("card-number").value;
+  let exp_date = document.getElementById("exp-date").value;
+  let cvv = document.getElementById("cvv").value;
+  let valor = document.getElementById("valor").value;
+  let nom_Producto = document.getElementById("nom-producto").value;
 
   //payment
   var request = new XMLHttpRequest();
@@ -95,11 +80,63 @@ function prueba() {
   request.setRequestHeader('idempotency-key', 'cust-34532-trans-001356-p');
 
   var body = {
-    'amount': 34800,
+    'amount': valor,
     'currency': 'USD',
-    'statement_soft_descriptor': 'Oil lamp'
+    'statement_soft_descriptor': nom_Producto
   };
   request.send(JSON.stringify(body));
+
+  //tokenizar
+
+  let holder_name = document.getElementById("cardholder-name").value;
+
+  console.log(holder_name);
+
+  POS.tokenize({
+    "token_type": "credit_card",
+    "holder_name": holder_name,
+    "expiration_date": exp_date,
+    "card_number": card_number
+  },
+    function (result) {
+
+      console.log("result obtained" + result);
+      let json = JSON.parse(result);
+      token = json["token"];
+      // Check for errors, if all is good, then proceed!
+    }
+  );
+
+  //autorizacion
+  var request = new XMLHttpRequest();
+  request.open('POST', 'https://api.paymentsos.com/payments/{payment_id}/authorizations');
+  request.setRequestHeader('Content-Type', 'application/json');
+  request.setRequestHeader('api-version', '1.3.0');
+  request.setRequestHeader('x-payments-os-env', 'test');
+  request.setRequestHeader('app-id', 'prueba.wolfbusinesscompany.wolfbusinesscompany');
+  request.setRequestHeader('private-key', '63b34924-559d-4a51-b56f-ffe3c2a52874');
+  request.setRequestHeader('idempotency-key', 'cust-34532-trans-001356-a');
+  var body = {
+    'payment_method': {
+      'type': 'tokenized',
+      'token': token,
+      'credit_card_cvv': cvv
+    },
+    'reconciliation_id': '23434534534'
+  };
+  request.send(JSON.stringify(body));
+
+
+  var request = new XMLHttpRequest();
+  request.open('POST', 'https://api.paymentsos.com/payments/{payment_id}/captures');
+  request.open('POST', url);
+  request.setRequestHeader('Content-Type', 'application/json');
+  request.setRequestHeader('api-version', '1.3.0');
+  request.setRequestHeader('x-payments-os-env', 'test');
+  request.setRequestHeader('app-id', 'prueba.wolfbusinesscompany.wolfbusinesscompany');
+  request.setRequestHeader('private-key', '63b34924-559d-4a51-b56f-ffe3c2a52874');
+  request.setRequestHeader('idempotency-key', 'cust-34532-trans-001356-cap');
+  request.send();
 
   //cargar
   var request = new XMLHttpRequest();
@@ -118,22 +155,5 @@ function prueba() {
   };
   request.send(JSON.stringify(body));
 
-  //autorizacion
-  var request = new XMLHttpRequest();
-  request.open('POST', 'https://api.paymentsos.com/payments/{payment_id}/authorizations');
-  request.setRequestHeader('Content-Type', 'application/json');
-  request.setRequestHeader('api-version', '1.3.0');
-  request.setRequestHeader('x-payments-os-env', 'test');
-  request.setRequestHeader('app-id', 'prueba.wolfbusinesscompany.wolfbusinesscompany');
-  request.setRequestHeader('private-key', '63b34924-559d-4a51-b56f-ffe3c2a52874');
-  request.setRequestHeader('idempotency-key', 'cust-34532-trans-001356-a');
-  var body = {
-    'payment_method': {
-      'type': 'tokenized',
-      'token':  token,
-      'credit_card_cvv': '1231'
-    },
-    'reconciliation_id': '23434534534'
-  };
-  request.send(JSON.stringify(body));
+
 }
