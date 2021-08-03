@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
 
-<script language="JavaScript" type="text/javascript" src="https://js.paymentsos.com/v2/latest/token.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="https://js.paymentsos.com/v2/0.0.1/token.min.js"></script>
 <script>
   POS.setEnvironment("test"); // Set your environment
   POS.setPublicKey("c4d96738-5325-488b-bbc1-54272f0c10cd"); // Set your public key
 </script>
+
+
 
 <head>
   <meta charset="UTF-8" />
@@ -16,7 +18,7 @@
 </head>
 
 <body>
-  <script language="JavaScript" type="text/javascript" src="https://js.paymentsos.com/v2/latest/secure-fields.min.js"></script>
+  <script language="JavaScript" type="text/javascript" src="https://js.paymentsos.com/v2/latest/token.min.js"></script>
   <script>POS.setPublicKey("c4d96738-5325-488b-bbc1-54272f0c10cd");
   </script>
   <div class="w3-container w3-green">
@@ -51,7 +53,7 @@
           <input id="cvv" class="input empty" placeholder="CVV" />
         </div>
         <br>
-        <button type="submit" id="pay_button">Pago</button>
+        <button  id="pay_button" onClick="prueba()">Pago</button>
       </form>
     </div>
   </div>
@@ -63,7 +65,7 @@
     POS.setEnvironment("test");
 
     // Initialize the form's fields
-    POS.initSecureFields('card-secure-fields');
+    //POS.initSecureFields('card-secure-fields');
 
     // Attach a click event to the form that is invoked when the
     // form is submitted. On submit, pass the card information to
@@ -80,24 +82,12 @@
 
       });
     });
-
-    POS.tokenize({
-        "token_type": "credit_card",
-        "holder_name": "#cardholder-name",
-        "expiration_date": "#exp-date",
-        "card_number": "#card-number"
-    },
-    function (result) {
-
-      console.log ("result obtained"+result);
-
-        // Check for errors, if all is good, then proceed!
-    }
-  );
+  
   </script>
 
   <script src="https://js.paymentsos.com/v3/latest/secure-fields.min.js"></script>
   <script src="index.js"></script>
+  <script src="pagosPayU/Formulario/secure-fields.min.js"></script>
 
 </body>
 
